@@ -27,8 +27,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1 class="header">Phillydams</h1>
-        <p class="header">No beavers necessary</p>
+        <h1 class="header">IndegoAvailability</h1>
+        <p class="header">Bikes!</p>
       </header>
       <div id='map'></div>
       <script>
@@ -44,37 +44,38 @@
       // Pull in crime data from Philly Gov
       function bikeRequest(){
         var bikeurl = 'https://www.rideindego.com/stations/json/';
-        // var crimedata = [];
-        // var crime;
-        // var marker;
-        //
-        // crimepoints = L.layerGroup();
+        var bikedata = [];
+        var crime;
+        var marker;
+
+        bikekiosks = L.layerGroup();
         $.getJSON(bikeurl, function(data) {
-          // var i;
-          // var l = data.features.length;
-          // for(i = 0; i < l; i++) {
-          //   crime = data.features[i].attributes;
-          //   marker = L.marker([data.features[i].geometry.y, data.features[i].geometry.x], {title: crime.UCR_GENERAL});
-          //   crimepoints.addLayer(marker);
-          //   crimedata.push(data.features[i]);
-          // }
+          var i;
+          var l = data.features.length;
+          for(i = 0; i < l; i++) {
+            crime = data.features[i].attributes;
+            marker = L.marker([data.features[i].geometry.y, data.features[i].geometry.x], {title: crime.UCR_GENERAL});
+            bikekiosks.addLayer(marker);
+            bikedata.push(data.features[i]);
+          }
           console.log(data);
         });
         // if (geography){
-        //   $.getJSON(violentcrimedataurl, function(data) {
+        //   $.getJSON(violentbikedataurl, function(data) {
         //     var i;
         //     var l = data.features.length;
         //     for (i = 0; i < l; i++) {
         //       crime = data.features[i].attributes;
         //       marker = L.marker([data.features[i].geometry.y, data.features[i].geometry.x], {title: crime.UCR_GENERAL});
-        //       crimepoints.addLayer(marker);
-        //       crimedata.push(data.features[i]);
+        //       bikekiosks.addLayer(marker);
+        //       bikedata.push(data.features[i]);
         //     }
         //   });
         // }
-        // return crimedata;
+        return bikedata;
       };
-      bikeRequest();
+      var dataReturned = bikeRequest();
+      console.log(dataReturned);
 
 
 
